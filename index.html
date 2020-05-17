@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
+<style>
+
+body{
+   font-family: 'Quicksand', 'Helvetica', sans-serif;
+}
+
+.uicontainer {
+  width: 100%;
+}
+
+.slideContainer {
+  max-width:80%;
+  margin-left:10%;
+  margin-right:10%;
+  border:3px solid #d3d3d3;
+  border-radius:1em;
+  margin-bottom:10px;
+}
+
+.buttonContainer {
+  max-width:80%;
+  margin-left:10%;
+  margin-right:10%;
+  display:flex;
+  justify-content: space-between;
+}
+
+
+.slider {
+ -webkit-appearance: none;
+  width: 90%;
+  margin-left:5%;
+  margin-right:5%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  border-right: 5px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #800000;
+   border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn {
+  border: none;
+  border-radius: 20px;
+  color: white;
+  margin-top:10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #800000;
+}
+
+.hidden {
+  display:none;
+}
+
+.left,
+.right {
+  float:left;
+  margin-left:5%;
+  padding:5px;
+  font-size:.8em;
+}
+.right {
+  float:right;
+  margin-right:5%;
+}
+
+.type {
+  margin-top: 20px;
+  margin-left:10%;
+  display:none;
+}
+.description {
+  margin-top: 20px;
+  margin-left:10%;
+  display:none;
+  font-size:.7em;
+}
+
+.title {
+  font-size: 2em;
+  text-align: center;
+
+}
+
+</style>
+</head>
+<body>
+
+<div class='title'>Scav</div>
+
+
+<div class="uicontainer">
+
+<div class='slideContainer'>
+<div class='left'><span>Seeker</span></div>
+<div class='right'><span>Maker</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range1">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Normal</span></div>
+<div class='right'><span>Weird</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range2">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Introvert</span></div>
+<div class='right'><span>Extrovert</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range3">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Luddite</span></div>
+<div class='right'><span>Technophile</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range4">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Goofy</span></div>
+<div class='right'><span>Serious</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range5">
+</div>
+
+
+<div class='slideContainer'>
+<div class='left'><span>Ludicrous</span></div>
+<div class='right'><span>Sensible</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range6">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Intellectual</span></div>
+<div class='right'><span>Tactile</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range7">
+</div>
+
+
+<div class='slideContainer'>
+<div class='left'><span>Artistic</span></div>
+<div class='right'><span>Scientific</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range8">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Refined</span></div>
+<div class='right'><span>Rugged</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range9">
+</div>
+
+<div class='slideContainer'>
+<div class='left'><span>Angelic</span></div>
+<div class='right'><span>Demonic</span></div>
+<input type="range" min="0" max="100" value="50" class="slider" id="range10">
+</div>
+
+<div class='buttonContainer'>
+<button class='btn' id='restart' onclick='restart()'>Restart</button>
+<button class='btn' id='submit' onclick="submit()">Submit</button>
+</div>
+
+<div class='type' id='type'></div>
+<div class='description' id='description'></div>
+
+</div>
+
+<script>
+  function submit() {
+    var arr = [];
+    for ( var i = 1; i<=10; i++ ){
+      var val = document.getElementById( "range" + i ).value;
+      arr.push( val )
+    }
+
+    var index = indexOfMindistance( arr );
+
+
+   // document.getElementById( 'submit' ).style.display = "none"; 
+    document.getElementById( 'type' ).innerHTML = results[ index ].type;
+    document.getElementById( 'description').innerHTML = results[ index ].description;
+    document.getElementById( 'type').style.display = "block";
+    document.getElementById( 'description').style.display = "block";
+    //document.getElementById( 'restart').style.display ="block";
+
+  }
+  function restart() {
+    //document.getElementById( 'submit' ).style.display = "block"; 
+    document.getElementById( 'type').style.display = "none";
+    document.getElementById( 'description').style.display = "none";
+   // document.getElementById( 'restart').style.display ="none";
+
+    for ( var i = 1; i<=10; i++ ){
+      document.getElementById( "range" + i ).value = 50;
+    
+    }
+  }
+
+// 12 rows, 10 columns
+var data = [
+[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+[ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ],
+[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
+[ 40, 40, 40, 40, 40, 40, 40, 40, 40, 40 ],
+[ 50.1, 50.44, 50.15, 50.6, 50.333, 50.3, 50.6, 50.5, 50.5, 50.6 ],
+[ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ],
+[ 70, 70, 70, 70, 70, 70, 70, 70, 70, 70 ],
+[ 8, 8, 8, 8, 8, 8, 8, 8, 8, 8 ],
+[ 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 ],
+[ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 ],
+[ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11 ],
+];
+
+function indexOfMindistance( input ) {
+  var mins = [];
+  for ( var i = 0; i < data.length; i++ ) {
+    row = data[ i ];
+    // row.length is always 10
+    var sq = 0;
+    for ( var j = 0; j < row.length; j++ ) {
+        var diff = row[ j ] - input[ j ];
+  
+        sq += Math.pow( diff, 2 );
+    }
+  
+    mins.push( Math.sqrt( sq ));
+  }
+
+ // console.log( mins );
+
+  var idx = 0;
+
+  var min = mins[ 0 ];
+  for ( var i = 1; i < mins.length; i++ ) {
+    if ( mins[ i ] < min ) {
+      min = mins[ i ];
+      idx = i;
+    }
+  } 
+ // console.log( "min index is " + idx );
+  return idx;
+}
+
+
+
+var results = [];
+results.push( {
+  type:'YOU ARE: The Blood Drive',
+  description:'From 2008 The time is set. The magics in the air hum as you approach the place of power. The ritual circle has been drawn, the seat prepared, the needle ready; all that it needs to complete the arcane arts are volunteers willing to part with just a pint of that precious uid which we have named Blood. You have imbibed that sacred Food which is needed to prepare yourself for the task, of course, so travel to the Circle and put down your name as one who has helped Conquer the Blood Drive.',
+});
+results.push ( {
+  type:'YOU ARE: Train Wash',
+  description: 'From 2010 Item 24. That train is looking pretty grimy. Do me a favor and ride it through a drive-through trainwash.'
+});
+
+results.push( {
+type:'YOU ARE: The List',
+description:'Item 1. A copy of the [year #] University of Chicago Scavenger Hunt List.'
+});
+
+results.push( {
+type:'YOU ARE: A Periodic Table',
+description:'From 2008 Item 55. Construct the Periodic Table in its native table form: a coffee table.'
+});
+
+results.push( {
+type:'YOU ARE: Nuclear Reactor ',
+description:'From 1999 Item 240. A breeder reactor built in a shed, and the boy scout badge to prove credit was given where boy scout credit was due. '
+});
+results.push( {
+type:'YOU ARE: An Elephant',
+description:'From 1997 Item 104. A real live, breathing elephant '
+});
+
+results.push( {
+type:'YOU ARE: Lincoln Bust',
+description:'From 2008 Item 40. A bust of Abraham Lincoln made out of pennies.'
+});
+
+results.push( {
+type:'YOU ARE: A Bread Zipline',
+description:'From 2019 Item 208. What is this, a zip line for a loaf of sourdough bread? [up to 6 points, judged on length (there’s a limit on points, but No Fucking Limit on length). 3 bonus points for a freestanding zipline. 2 bonus points if the loaf satisfyingly detaches from the zipline directly over a bucket of tomato soup]'
+});
+
+results.push( {
+type:'YOU ARE: A Go-Kart',
+description:'From 2016 Item 54. You little rascals made a pedal powered go-kart that seats two? Let’s see what it can do and, of course, if it can look good doing it. [250 points based on aesthetics, mechanism, placement in the race, and course objectives.] '
+});
+
+results.push( {
+type:'YOU ARE: A Big Fish ',
+description:"From 2017 Item 103. There's always a bigger fish: The Item. Make and bring an increasingly-volumetrically large model fish to Thursday night/Friday night events, Scav Olympics, and Judgment. [α points]"
+});
+
+results.push( {
+type:"YOU ARE: Michelin Tire/Chef ",
+description:"From 2018 Item 232. A Michelin® tire signed by a chef at a Michelin® restaurant. [4n points, where n is the number of stars, +3 bonus points if it's the head chef]",
+});
+
+results.push( {
+type:'YOU ARE: Great British Drink-Off ',
+description:'From 2017 55 The Great British Drink-O : It turns out renting a bunch of ovens and a tent is prohibitively expensive, but there' + "'" + 's no reason why we can' + "'" + 't all meet in to determine the best cocktail crafter of UChicago. First, the Signature Challenge will have your team' + "'" + 's mixologist demonstrate the creation of a tried-and-tested mixture that they feel is most demonstrative of their team' +"'" + 's, as they say "spirit". Then, the Technical Challenge will have them concoct a traditional-yet-challenging mystery cocktail to please the palates of Judge Berry and Judge Hollywood. Finally, the Show-Stopper Challenge will require them to pull out coconut shells, little paper umbrellas, tiny swords, and sparklers aplenty, to make a frou-frou drink as tasty as it is visually stunning. Be warned though, only one will leave with the Star Bartender Badge! Meet in the McCormick Lounge at 3 p.m. on Saturday. '
+});
+
+
+</script>
+</body>
+</html>
