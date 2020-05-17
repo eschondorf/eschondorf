@@ -4,7 +4,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
 
-   
 <style>
 
 body{
@@ -92,29 +91,43 @@ body{
 .type {
   margin-top: 20px;
   margin-left:10%;
+  font-size:1.5em;
   display:none;
 }
+
 .description {
   margin-top: 20px;
   margin-left:10%;
   display:none;
-  font-size:.7em;
 }
 
-.title {
-  font-size: 2em;
-  text-align: center;
+.image { 
+  margin-top: 20px;
+  margin-left:10%;
+  display:none;
+  max-height: 400px; 
+  max-width: 400px; 
+  overflow: hidden; }
 
+.title {
+  font-size: 2.5em;
+  text-align: center;
+}
+.instructions {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 </style>
 </head>
 <body>
 
-<div class='title'>Scav</div>
-
+<div class='title'>Which Classic Scav Item are You?</div>
 
 <div class="uicontainer">
+
+<div class='instructions' id='instruct'>Use the sliders to indicate where you fall on these spectra</div>
 
 <div class='slideContainer'>
 <div class='left'><span>Seeker</span></div>
@@ -184,55 +197,64 @@ body{
 </div>
 
 <div class='type' id='type'></div>
+<img src='' class='image' id='image'></div>
 <div class='description' id='description'></div>
 
 </div>
 
 <script>
+
   function submit() {
     var arr = [];
     for ( var i = 1; i<=10; i++ ){
       var val = document.getElementById( "range" + i ).value;
+      document.getElementsByClassName('slideContainer')[(i-1)].style.display = "none";
       arr.push( val )
     }
 
     var index = indexOfMindistance( arr );
 
 
-   // document.getElementById( 'submit' ).style.display = "none"; 
+    document.getElementById( 'submit' ).style.display = "none";
+    document.getElementById( 'instruct' ).style.display = "none"; 
     document.getElementById( 'type' ).innerHTML = results[ index ].type;
+    document.getElementById( 'image' ).src = results[ index ].image;
     document.getElementById( 'description').innerHTML = results[ index ].description;
     document.getElementById( 'type').style.display = "block";
+    document.getElementById( 'image').style.display = "block";
     document.getElementById( 'description').style.display = "block";
     //document.getElementById( 'restart').style.display ="block";
 
   }
   function restart() {
-    //document.getElementById( 'submit' ).style.display = "block"; 
+    document.getElementById( 'submit' ).style.display = "block"; 
+    document.getElementById( 'instruct' ).style.display = "block";
     document.getElementById( 'type').style.display = "none";
+    document.getElementById( 'image').style.display = "none";
     document.getElementById( 'description').style.display = "none";
    // document.getElementById( 'restart').style.display ="none";
 
     for ( var i = 1; i<=10; i++ ){
       document.getElementById( "range" + i ).value = 50;
+      document.getElementsByClassName('slideContainer')[(i-1)].style.display = "block";
     
     }
   }
 
 // 12 rows, 10 columns
 var data = [
-[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-[ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
-[ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 ],
-[ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 ],
-[ 40, 40, 40, 40, 40, 40, 40, 40, 40, 40 ],
-[ 50.1, 50.44, 50.15, 50.6, 50.333, 50.3, 50.6, 50.5, 50.5, 50.6 ],
-[ 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 ],
-[ 70, 70, 70, 70, 70, 70, 70, 70, 70, 70 ],
-[ 8, 8, 8, 8, 8, 8, 8, 8, 8, 8 ],
-[ 9, 9, 9, 9, 9, 9, 9, 9, 9, 9 ],
-[ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 ],
-[ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11 ],
+[44.14, 28.21,  53.97,  38.53,  79.69,  82.07,  67.32,  81.53,  42.93,  36.49],
+[68.33, 63.12,  49.49,  51.16,  27.59,  43.46,  72.14,  45.30,  63.81,  43.61],
+[18.00, 17.88,  35.86,  32.81,  67.54,  82.30,  44.02,  52.93,  34.48,  44.46],
+[87.46, 56.21,  35.73,  45.76,  43.31,  50.73,  55.37,  57.40,  38.22,  36.78],
+[86.07, 80.48,  39.42,  84.04,  52.56,  19.45,  39.71,  88.38,  46.59,  80.37],
+[8.30,  73.28,  77.93,  17.10,  22.08,  15.38,  79.67,  48.34,  78.13,  52.44],
+[88.06, 60.94,  37.23,  27.44,  37.94,  44.13,  78.40,  16.28,  37.51,  35.74],
+[89.06, 71.73,  63.22,  51.00,  18.22,  27.98,  71.52,  52.12,  62.88,  43.68],
+[89.92, 39.14,  75.65,  65.71,  43.80,  49.84,  62.75,  59.86,  67.92,  46.92],
+[82.53, 65.10,  62.22,  37.06,  26.34,  36.06,  70.47,  34.92,  58.94,  52.18],
+[12.04, 48.26,  86.63,  24.10,  44.82,  41.69,  56.73,  33.90,  25.20,  35.88],
+[80.88, 35.80,  81.33,  32.28,  47.45,  60.61,  68.69,  32.50,  31.18,  59.94]
 ];
 
 function indexOfMindistance( input ) {
@@ -270,59 +292,71 @@ function indexOfMindistance( input ) {
 var results = [];
 results.push( {
   type:'YOU ARE: The Blood Drive',
+  image:'Images/BloodDrive.jpg',
   description:'From 2008 The time is set. The magics in the air hum as you approach the place of power. The ritual circle has been drawn, the seat prepared, the needle ready; all that it needs to complete the arcane arts are volunteers willing to part with just a pint of that precious uid which we have named Blood. You have imbibed that sacred Food which is needed to prepare yourself for the task, of course, so travel to the Circle and put down your name as one who has helped Conquer the Blood Drive.',
 });
 results.push ( {
   type:'YOU ARE: Train Wash',
+  image:'Images/TrainWash.png',
   description: 'From 2010 Item 24. That train is looking pretty grimy. Do me a favor and ride it through a drive-through trainwash.'
 });
 
 results.push( {
 type:'YOU ARE: The List',
+image:'Images/ScavList.png',
 description:'Item 1. A copy of the [year #] University of Chicago Scavenger Hunt List.'
 });
 
 results.push( {
 type:'YOU ARE: A Periodic Table',
+image:'Images/PeriodicTable.jpg',
 description:'From 2008 Item 55. Construct the Periodic Table in its native table form: a coffee table.'
 });
 
 results.push( {
-type:'YOU ARE: Nuclear Reactor ',
+type:'YOU ARE: Nuclear Reactor',
+image:'Images/NuclearReactor.jpg',
 description:'From 1999 Item 240. A breeder reactor built in a shed, and the boy scout badge to prove credit was given where boy scout credit was due. '
 });
 results.push( {
 type:'YOU ARE: An Elephant',
+image:'Images/Elephant.jpg',
 description:'From 1997 Item 104. A real live, breathing elephant '
 });
 
 results.push( {
 type:'YOU ARE: Lincoln Bust',
+image:'Images/Penny.jpg',
 description:'From 2008 Item 40. A bust of Abraham Lincoln made out of pennies.'
 });
 
 results.push( {
 type:'YOU ARE: A Bread Zipline',
+image:'Images/BreadZipline.png',
 description:'From 2019 Item 208. What is this, a zip line for a loaf of sourdough bread? [up to 6 points, judged on length (there’s a limit on points, but No Fucking Limit on length). 3 bonus points for a freestanding zipline. 2 bonus points if the loaf satisfyingly detaches from the zipline directly over a bucket of tomato soup]'
 });
 
 results.push( {
 type:'YOU ARE: A Go-Kart',
+image:'Images/GoKarts.jpg',
 description:'From 2016 Item 54. You little rascals made a pedal powered go-kart that seats two? Let’s see what it can do and, of course, if it can look good doing it. [250 points based on aesthetics, mechanism, placement in the race, and course objectives.] '
 });
 
 results.push( {
 type:'YOU ARE: A Big Fish ',
+image:'Images/Fish.jpg',
 description:"From 2017 Item 103. There's always a bigger fish: The Item. Make and bring an increasingly-volumetrically large model fish to Thursday night/Friday night events, Scav Olympics, and Judgment. [α points]"
 });
 
 results.push( {
 type:"YOU ARE: Michelin Tire/Chef ",
+image:'Images/Tire.jpg',
 description:"From 2018 Item 232. A Michelin® tire signed by a chef at a Michelin® restaurant. [4n points, where n is the number of stars, +3 bonus points if it's the head chef]",
 });
 
 results.push( {
 type:'YOU ARE: Great British Drink-Off ',
+image:'Images/DrinkOff.jpg',
 description:'From 2017 55 The Great British Drink-O : It turns out renting a bunch of ovens and a tent is prohibitively expensive, but there' + "'" + 's no reason why we can' + "'" + 't all meet in to determine the best cocktail crafter of UChicago. First, the Signature Challenge will have your team' + "'" + 's mixologist demonstrate the creation of a tried-and-tested mixture that they feel is most demonstrative of their team' +"'" + 's, as they say "spirit". Then, the Technical Challenge will have them concoct a traditional-yet-challenging mystery cocktail to please the palates of Judge Berry and Judge Hollywood. Finally, the Show-Stopper Challenge will require them to pull out coconut shells, little paper umbrellas, tiny swords, and sparklers aplenty, to make a frou-frou drink as tasty as it is visually stunning. Be warned though, only one will leave with the Star Bartender Badge! Meet in the McCormick Lounge at 3 p.m. on Saturday. '
 });
 
